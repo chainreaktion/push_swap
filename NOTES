@@ -1,0 +1,10 @@
+check if input is valid (has more than 1 number, only numbers (isnum), no repetitions, numbers bigger than int max) => int this case display Error\n
+if no input, only return, do not display error
+check if less than 5 (?) numbers for exceptions
+enter sorting functions, if less than 5 numbers, enter specific sorting for less steps
+
+print result as a list with \n after each push_swap-command
+
+
+bonus:
+checker programm
