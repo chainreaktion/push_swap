@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-char	*fill_array(char **array)
+type_s	create_list(char **argv)
 {
 
 }

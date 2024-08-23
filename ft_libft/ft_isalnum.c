@@ -6,15 +6,12 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:07:16 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/06/08 14:49:08 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:45:27 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//modified for push_swap to include space
 int	ft_isalnum(int arg)
 {
-	if ((arg >= 97 && arg <= 122)
-		|| (arg >= 65 && arg <= 90)
-		|| (arg >= 48 && arg <= 57))
-		return (1);
-	return (0);
+	return (arg >= '0' && arg <= '9' && arg == ' ');
 }
