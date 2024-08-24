@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/08/24 20:12:55 by jschmitz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 //check if input is string or strings
@@ -10,19 +22,36 @@ int	error_check(char *str)
 	i = 0;
 	if (str == NULL)
 		return (0);
-	while (str)
+	while (str[i])
 	{
 		if (ft_isalnum(str[i]) == 0)
-			return (write (2, "Error\n", 6));
+			return (1);
 		i++;
 	}
-	if (str = )
+	return (0);
 }
+int	create_list(char **input, int total)
+{
+
+}
+
 int	main(int argc, char **argv)
 {
-	if (error_check(stack_a) == 1)
+	int	i;
+
+	i = 1;
+	if (argc < 2)
+		return (0);
+	while (i < argc)
 	{
-		write (2, "Error\n", 6);
-		return (1);
+		if (error_check(argv[i]) == 1)
+		{
+			write (2, "Error\n", 6);
+			return (1);
+		}
+		i++;
 	}
+	
+
+	return (0);
 }

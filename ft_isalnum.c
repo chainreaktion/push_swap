@@ -1,13 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 18:39:28 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/24 18:39:47 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/05/20 13:07:16 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/08/24 19:29:03 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
+//modified for push_swap to include space
+int	ft_isalnum(int arg)
+{
+	return ((arg >= '0' && arg <= '9') || arg == ' ');
+}
