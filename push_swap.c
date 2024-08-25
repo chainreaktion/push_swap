@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/24 20:12:55 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:32:46 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,47 @@ int	error_check(char *str)
 	}
 	return (0);
 }
-int	create_list(char **input, int total)
-{
 
+void	create_new_node(t_list *new, )
+void	create_list(t_list **stack, char **input)
+{
+	int	i;
+	int	j;
+	t_list new;
+
+	i = 1;
+	while (input[i] != NULL)
+	{
+		j = 0;
+		while (input[i][j] != '\0')
+		{
+			if (input[i][j] == ' ')
+			{
+				j++;
+				break;
+			}
+
+			ft_lstaddback(t_list **stack, t_list *new)
+			j++;
+		}
+		i++;
+
+	}
+}
+
+void	print_stack(t_list stack)
+{
+	while (stack)
+	{
+		printf(%d\n, stack->content);
+		stack = stack->next;
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	int	i;
+	t_list *stack_a;
 
 	i = 1;
 	if (argc < 2)
@@ -51,7 +84,9 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	
-
+	create_list(t_list **stack_a, char **argv);
+	if (stack_a->content == NULL)
+		return (write (2, "Errorstack\n", 11), 0);
+	print_stack(stack_a);
 	return (0);
 }
