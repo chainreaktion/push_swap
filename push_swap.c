@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/25 18:32:46 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:21:16 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,33 @@ int	error_check(char *str)
 	return (0);
 }
 
-void	create_new_node(t_list *new, )
-void	create_list(t_list **stack, char **input)
+int	error_check_doubles(t_list **)
+{
+
+
+}
+
+int	create_new_node(t_list **new_node, char *str, int start)
+{
+	size_t len;
+	char *next_number;
+
+	*new_node = malloc(sizeof(t_list));
+	if (*new_node == NULL)
+		return (1);
+	while (str[start + len] != '\0' && str[start + len] != ' ')
+		len++;
+	next_number = ft_substr(str, start, len)
+	(*new_node)->content = ft_atoi(next_number);
+	return (0);
+}
+
+int	create_list(t_list **stack, char **input)
 {
 	int	i;
 	int	j;
-	t_list new;
+	int	output;
+	t_list *new;
 
 	i = 1;
 	while (input[i] != NULL)
@@ -44,21 +65,24 @@ void	create_list(t_list **stack, char **input)
 		j = 0;
 		while (input[i][j] != '\0')
 		{
+			//case if multiple numbers on one string
 			if (input[i][j] == ' ')
 			{
-				j++;
+				i++;
 				break;
 			}
-
+			output = create_new_node(&new, input[i], j);
+			if (output != 0)
+				return (1);
 			ft_lstaddback(t_list **stack, t_list *new)
 			j++;
 		}
 		i++;
-
 	}
+	return (0);
 }
-
-void	print_stack(t_list stack)
+//not sure if it should be *stack ou stack
+void	print_stack(t_list *stack)
 {
 	while (stack)
 	{
@@ -70,7 +94,8 @@ void	print_stack(t_list stack)
 int	main(int argc, char **argv)
 {
 	int	i;
-	t_list *stack_a;
+	int	output;
+	t_list *stack_test;
 
 	i = 1;
 	if (argc < 2)
@@ -84,9 +109,9 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	create_list(t_list **stack_a, char **argv);
-	if (stack_a->content == NULL)
+	output = create_list(t_list **stack_test, char **argv);
+	if (stack_test->content == NULL)
 		return (write (2, "Errorstack\n", 11), 0);
-	print_stack(stack_a);
+	print_stack(stack_test);
 	return (0);
 }
