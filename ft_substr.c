@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:17:44 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/06/08 15:09:51 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:16:56 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
+	//replace calloc by ft_calloc
 	if (start >= s_len)
-		return (ft_calloc(1, 1));
+		return (calloc(1, 1));
 	if (start + len > s_len)
 		len = s_len - start;
 	res = (char *)malloc(sizeof(char) * (len + 1));
