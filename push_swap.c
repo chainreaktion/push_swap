@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/26 21:21:16 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/27 22:13:19 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	error_check(char *str)
 	}
 	return (0);
 }
-
+/*
 int	error_check_doubles(t_list **)
 {
 
 
-}
+}*/
 
 int	create_new_node(t_list **new_node, char *str, int start)
 {
