@@ -6,42 +6,47 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/29 00:15:52 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:25:40 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	create_new_node(t_list **new_node, char *input, int start)
+t_list	*create_new_node(char *input, int start)
 {
 	int		len;
 	char	*next_num;
+	t_list *new_node;
 
-	*new_node = malloc(sizeof(t_list));
-	if (*new_node == NULL)
-		return (1);
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return (NULL);
 	len = 0;
 	while (input[start + len] != '\0' && input[start + len] != ' ')
 		len++;
 	next_num = ft_substr(input, start, len);
 	if (next_num == NULL)
-		return (free(*new_node), 1);
-	(*new_node)->data = atoi(next_num);
+		return (free(new_node), NULL);
+	new_node->data = atoi(next_num);
 	free (next_num);
-	return (0);
+	return (new_node);
 }
 
 int	add_new_node(t_list **stack, char *input, int start)
 {
 	t_list *new_node;
 	t_list *last;
-	int		output;
 
-	output = create_new_node(&new_node, input, start);
-	if (output == 1)
-		return (1);
+	new_node = create_new_node(input, start);
+	if (new_node == NULL)
+		return (0);
 	if (*stack == NULL)
+	{
 		*stack = new_node;
+		new_node->next = new_node;
+		new_node->prev = new_node;
+		// creation of the circular linked list - has to point to itself
+	}
 	else
 	{
 		last = (*stack)->prev;
@@ -50,7 +55,7 @@ int	add_new_node(t_list **stack, char *input, int start)
 		new_node->prev = last;
 		last->next = new_node;
 	}
-	return (0);
+	return (1);
 }
 
 int	error_check_list(t_list **stack)
@@ -72,7 +77,7 @@ int	error_check_list(t_list **stack)
 	return (0);
 }
 
-size_t	create_linked_list(char **input, t_list ***stack, int argc)
+size_t	create_linked_list(char **input, t_list **stack)
 {
 	size_t	list_len;
 	int		i;
@@ -80,12 +85,8 @@ size_t	create_linked_list(char **input, t_list ***stack, int argc)
 	int	output;
 
 	list_len = 0;
-	/* if (!input)
-		return (0); */
 	i = 1;
-	//alternative: (input[i] != NULL) But not sure if there
-	// is a NULL in the argv-array
-	while (i < argc)
+	while (input[i] != NULL)
 	{
 		j = 0;
 		while (input[i][j] != '\0')
@@ -95,21 +96,26 @@ size_t	create_linked_list(char **input, t_list ***stack, int argc)
 			{
 				while (input[i][j] == ' ')
 					j++;
-				i++;
-				break;
+				if (input[i][j] == '\0')
+				{
+					i++;
+					break;
+				}
 			}
-			output = add_new_node(*stack, input[i], j);
-			if (output != 0)
+			output = add_new_node(stack, input[i], j);
+			while (input[i][j] != '\0' && input[i][j] != ' ')
+				j++;
+			if (output == 0)
 				return (0);
-			j++;
+			else
+				list_len += output;
 		}
 		i++;
 	}
-	if (error_check_list(*stack) == 1)
+	if (error_check_list(stack) == 1)
 	{
 		write (2, "ErrorDoublon\n", 13);
 		return (0);
 	}
 	return (list_len);
 }
-

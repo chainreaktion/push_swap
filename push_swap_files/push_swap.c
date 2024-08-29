@@ -6,16 +6,13 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/28 23:45:56 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:32:27 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//check if input is string or strings
-//check for doubles or invalid char
-
-int	error_check(char *str)
+int	error_check(const char *str)
 {
 	size_t	i;
 
@@ -30,41 +27,7 @@ int	error_check(char *str)
 	}
 	return (0);
 }
-/*
-int	error_check_doubles(t_list **)
-{
 
-
-}*/
-/* \int	create_list(t_list **stack, char **input)
-{
-	int	i;
-	int	j;
-	int	output;
-	t_list *new;
-
-	i = 1;
-	while (input[i] != NULL)
-	{
-		j = 0;
-		while (input[i][j] != '\0')
-		{
-			//case if multiple numbers on one string
-			if (input[i][j] == ' ')
-			{
-				i++;
-				break;
-			}
-			output = create_new_node(&new, input[i], j);
-			if (output != 0)
-				return (1);
-			ft_lstaddback(t_list **stack, t_list *new)
-			j++;
-		}
-		i++;
-	}
-	return (0);
-} */
 void	print_stack(t_list *stack)
 {
 	t_list	*temp;
@@ -75,6 +38,8 @@ void	print_stack(t_list *stack)
 		return;
 	}
 	temp = stack;
+	printf("%d\n", temp->data);
+    temp = temp->next;
 	while (temp != stack)
 	{
 		printf("%d\n", temp->data);
@@ -86,8 +51,13 @@ int	main(int argc, char **argv)
 {
 	int	i;
 	int	list_len;
-	t_list **stack_test;
+	t_list *stack_a;
+	t_list *stack_b;
+	char	*str = "11 22 33 44 55";
 
+
+	stack_a = NULL;
+	stack_b = NULL;
 	i = 1;
 	if (argc < 2)
 		return (0);
@@ -97,11 +67,15 @@ int	main(int argc, char **argv)
 			return (write (2, "Error\n", 6), 1);
 		i++;
 	}
-	list_len = create_linked_list(argv, &stack_test, argc);
+	list_len = create_linked_list(argv, &stack_a);
 	if (list_len == 0)
-		return (write (2, "Errorstack\n", 11), 0);
-	/* if ((*stack_test)->data == NULL)
-		return (write (2, "Errorstack\n", 11), 0); */
-	print_stack(*stack_test);
+		return (write (2, "Errorstacka\n", 11), 0);
+	printf("stack a before:\n");
+	print_stack(stack_a);
+	list_len = create_linked_list(&str, &stack_b);
+	if (list_len == 0)
+		return (write (2, "Errorstacka\n", 11), 0);
+	printf("stack b before:\n");
+	print_stack(stack_b);
 	return (0);
 }
