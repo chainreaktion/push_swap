@@ -6,19 +6,11 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 13:55:22 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/30 00:22:41 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:35:48 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-pb : push b - take the first element at the top of a and put it at the top of b. Do nothing if a is empty.
-ra : rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
-rb : rotate b - shift up all elements of stack b by 1. The first element becomes the last one.
-rr : ra and rb at the same time.
-rra : reverse rotate a - shift down all elements of stack a by 1. The last element becomes the first one.
-rrb : reverse rotate b - shift down all elements of stack b by 1. The last element becomes the first one.
-rrr : rra and rrb at the same time.*/
 
 int	swap_first_elements(t_list **stack)
 {
@@ -37,10 +29,12 @@ int	swap_first_elements(t_list **stack)
 
 	first->next = second_next;
 	second->prev = first_prev;
+
 	first_prev->next = second;
 	second_next->prev = first;
-	first_prev->next = second;
-	second_next->prev = first;
+
+	second->next = first;
+	first->prev = second;
 
 	*stack = second;
 	return (0);
@@ -67,24 +61,54 @@ int	push_stack(t_list **stack_a, t_list **stack_b)
 	t_list	*first_b_prev;
 	t_list	*first_b_next;
 
-	//take the first element at the top of b and put it at
-	//the top of a. Do nothing if b is empty.
-	//might need more conditions
+//take the first element at the top of b and put it at
+//the top of a. Do nothing if b is empty.
 	if (*stack_b == NULL)
 		return (1);
+//Get first nodes of each stack
 	first_a = *stack_a;
+	first_b = *stack_b;
+// Get the surrounding nodes
 	first_a_prev = first_a->prev;
 	first_a_next = first_a->next;
-	first_b = *stack_b;
 	first_b_prev = first_b->prev;
 	first_b_next = first_b->next;
+// Link the nodes
+	first_a_prev->next = first_b;
+	first_a_next->prev = first_b;
+
+	first_b_prev->next = first_a;
+	first_b_next->prev = first_a;
+
+	first_b->next = first_a_next;
+	first_b->prev = first_a_prev;
 
 	first_a->next = first_b_next;
 	first_a->prev = first_b_prev;
-	first_b->next = first_a_next;
-	first_b->prev = first_a_prev;
 
 	*stack_a = first_b;
 	*stack_b = first_a;
 	return (0);
+}
+
+void	rotate_stack(t_list **stack)
+{
+	*stack = (*stack)->next;
+}
+
+void	rotate_both_stacks(t_list **stack_a, t_list **stack_b)
+{
+	*stack_a = (*stack_a)->next;
+	*stack_b = (*stack_b)->next;
+}
+
+void	reverse_rotate_stack(t_list **stack)
+{
+	*stack = (*stack)->prev;
+}
+
+void	reverse_rotate_both_stacks(t_list **stack_a, t_list **stack_b)
+{
+	*stack_a = (*stack_a)->prev;
+	*stack_b = (*stack_b)->prev;
 }

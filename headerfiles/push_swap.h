@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/30 00:23:55 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/31 01:05:55 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ typedef struct s_list
 # include "libft.h"
 # include <unistd.h>
 # include <stddef.h>
+# include <limits.h>
 //remove this later
 # include <stdio.h>
 # include <stdlib.h>
 
 int		error_check(const char *str);
-int		ft_isalnum(int arg);
+int		ft_isalnumextended(int arg);
 void	print_stack(t_list *stack);
 int		ft_atoi(const char *nptr);
 t_list	*create_new_node(char *input, int start);
@@ -37,5 +38,11 @@ int		error_check_list(t_list **stack);
 size_t	create_linked_list(char **input, t_list **stack);
 int		swap_first_elements(t_list **stack);
 int		swap_a_and_b(t_list **stack_a, t_list **stack_b);
+int		push_stack(t_list **stack_a, t_list **stack_b);
+void	rotate_stack(t_list **stack);
+void	rotate_both_stacks(t_list **stack_a, t_list **stack_b);
+void	reverse_rotate_stack(t_list **stack);
+void	reverse_rotate_both_stacks(t_list **stack_a, t_list **stack_b);
+int		stack_sorted(t_list **stack);
 
 #endif

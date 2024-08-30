@@ -6,7 +6,7 @@
 #    By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 22:04:51 by jschmitz          #+#    #+#              #
-#    Updated: 2024/08/30 00:23:14 by jschmitz         ###   ########.fr        #
+#    Updated: 2024/08/31 00:50:42 by jschmitz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = push_swap
 
 CC = cc
 
-SRCS =	libft/ft_isalnum.c \
-		libft/ft_substr.c \
+SRCS =	libft/ft_substr.c \
 		libft/ft_strlen.c \
 		push_swap_files/push_swap.c \
 		push_swap_files/create_stack.c \
+		push_swap_files/ft_isalnumextended.c \
 		push_swap_files/allowed_moves.c
 
 OBJ = $(SRCS:.c=.o)

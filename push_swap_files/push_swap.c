@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/30 00:32:27 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/08/31 01:05:40 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,30 @@ int	error_check(const char *str)
 		return (0);
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) == 0)
+		if (ft_isalnumextended(str[i]) == 0)
 			return (1);
 		i++;
+	}
+	return (0);
+}
+
+int		stack_sorted(t_list **stack)
+{
+	t_list	*temp;
+	t_list	*next_node;
+
+	temp = *stack;
+	next_node = temp->next;
+/* 	if (temp->data > next_node->data)
+		return (1);
+	temp = temp->next;
+	next_node = temp->next; */
+	while (next_node != *stack)
+	{
+		if (temp->data > next_node->data)
+			return (1);
+		temp = temp->next;
+		next_node = temp->next;
 	}
 	return (0);
 }
@@ -54,8 +75,17 @@ int	main(int argc, char **argv)
 	t_list *stack_a;
 	t_list *stack_b;
 	char	*str = "11 22 33 44 55";
+	char **argb;
+//	int	output = 0;
 
-
+	argb = malloc(2 * sizeof(char *));
+    if (argb == NULL)
+    {
+        perror("Failed to allocate memory argb");
+        return 1;
+    }
+	argb[0] = NULL;
+	argb[1] = str;
 	stack_a = NULL;
 	stack_b = NULL;
 	i = 1;
@@ -72,10 +102,44 @@ int	main(int argc, char **argv)
 		return (write (2, "Errorstacka\n", 11), 0);
 	printf("stack a before:\n");
 	print_stack(stack_a);
-	list_len = create_linked_list(&str, &stack_b);
+	if (stack_sorted(&stack_a) == 0)
+		printf("stack a sorted.\n");
+	else
+		printf("stack a not sorted.\n");
+	list_len = create_linked_list(argb, &stack_b);
 	if (list_len == 0)
-		return (write (2, "Errorstacka\n", 11), 0);
+		return (write (2, "Errorstackb\n", 11), 0);
 	printf("stack b before:\n");
 	print_stack(stack_b);
+	if (stack_sorted(&stack_b) == 0)
+		printf("stack b sorted.\n");
+	else
+		printf("stack b not sorted.\n");
+/* 	output = swap_first_elements(&stack_a);
+	if (output == 1)
+		return (printf("Errorswapa\n"), 0);
+	printf("stack a after swap:\n");
+	print_stack(stack_a);
+	printf("stack b after swap:\n");
+	print_stack(stack_b);  */
+/* 	output = swap_a_and_b(&stack_a, &stack_b);
+	if (output == 1)
+		return (printf("Errorswap\n"), 0); */
+/* 	output = push_stack(&stack_a, &stack_b);
+	if (output == 1)
+		return (printf("Errorpushstack\n"), 0); */
+	reverse_rotate_both_stacks(&stack_a, &stack_b);
+	printf("stack a after swap:\n");
+	print_stack(stack_a);
+	if (stack_sorted(&stack_a) == 0)
+		printf("stack a sorted.\n");
+	else
+		printf("stack a not sorted.\n");
+	printf("stack b after swap:\n");
+	print_stack(stack_b);
+	if (stack_sorted(&stack_b) == 0)
+		printf("stack b sorted.\n");
+	else
+		printf("stack b not sorted.\n");
 	return (0);
 }
