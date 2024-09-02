@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/31 01:05:40 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:46:59 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,6 @@ int	error_check(const char *str)
 		if (ft_isalnumextended(str[i]) == 0)
 			return (1);
 		i++;
-	}
-	return (0);
-}
-
-int		stack_sorted(t_list **stack)
-{
-	t_list	*temp;
-	t_list	*next_node;
-
-	temp = *stack;
-	next_node = temp->next;
-/* 	if (temp->data > next_node->data)
-		return (1);
-	temp = temp->next;
-	next_node = temp->next; */
-	while (next_node != *stack)
-	{
-		if (temp->data > next_node->data)
-			return (1);
-		temp = temp->next;
-		next_node = temp->next;
 	}
 	return (0);
 }
@@ -67,6 +46,8 @@ void	print_stack(t_list *stack)
 		temp = temp->next;
 	}
 }
+
+
 
 int	main(int argc, char **argv)
 {
@@ -99,7 +80,7 @@ int	main(int argc, char **argv)
 	}
 	list_len = create_linked_list(argv, &stack_a);
 	if (list_len == 0)
-		return (write (2, "Errorstacka\n", 11), 0);
+		return (printf("Errorstack_a\n"), 0);
 	printf("stack a before:\n");
 	print_stack(stack_a);
 	if (stack_sorted(&stack_a) == 0)
@@ -108,7 +89,7 @@ int	main(int argc, char **argv)
 		printf("stack a not sorted.\n");
 	list_len = create_linked_list(argb, &stack_b);
 	if (list_len == 0)
-		return (write (2, "Errorstackb\n", 11), 0);
+		return (printf("Errorstack_b\n"), 0);
 	printf("stack b before:\n");
 	print_stack(stack_b);
 	if (stack_sorted(&stack_b) == 0)

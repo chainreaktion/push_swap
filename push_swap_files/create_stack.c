@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/31 01:06:31 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:46:03 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_list	*create_new_node(char *input, int start)
 {
 	int		len;
+	long	num;
 	char	*next_num;
 	t_list *new_node;
 
@@ -25,12 +26,17 @@ t_list	*create_new_node(char *input, int start)
 	while (input[start + len] != '\0' && input[start + len] != ' ')
 		len++;
 	next_num = ft_substr(input, start, len);
-	//printf("next_num: %s\n", next_num);
+//printf("next_num: %s\n", next_num);
 	if (next_num == NULL)
 		return (free(new_node), NULL);
-	new_node->data = atoi(next_num);
-	//if (new_node->data > INT_MAX
-	//printf("new_node: %d\n", new_node->data);
+	num = atol(next_num);
+// add error message in the following case
+	if (num > INT_MAX || num < INT_MIN)
+	{
+		printf("int size error\n");
+		return (new_node = NULL);
+	}
+	new_node->data = (int)num;
 	free (next_num);
 	return (new_node);
 }
@@ -80,6 +86,7 @@ int	error_check_list(t_list **stack)
 	return (0);
 }
 
+//too long
 size_t	create_linked_list(char **input, t_list **stack)
 {
 	size_t	list_len;
@@ -122,3 +129,4 @@ size_t	create_linked_list(char **input, t_list **stack)
 	}
 	return (list_len);
 }
+

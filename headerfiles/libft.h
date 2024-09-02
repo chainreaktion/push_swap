@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:01:17 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/08/28 23:35:37 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:38:45 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int		ft_isalnum(int arg);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *nptr);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+long	ft_atol(const char *nptr);
 
 #endif
