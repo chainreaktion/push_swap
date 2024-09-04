@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/02 21:23:43 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:55:21 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 typedef struct s_list
 {
-	int			data;
+	int				data;
+	int				push_cost;
+	//struct s_list 	*target_node;
 	struct s_list	*next;
 	struct s_list	*prev;
 }					t_list;
@@ -44,5 +46,19 @@ void	rotate_both_stacks(t_list **stack_a, t_list **stack_b);
 void	reverse_rotate_stack(t_list **stack);
 void	reverse_rotate_both_stacks(t_list **stack_a, t_list **stack_b);
 int		stack_sorted(t_list **stack);
+void	list_free(t_list **stack);
+int		sort_stack_three(t_list **stack_a);
+int		pick_algorithm(t_list **stack_a, t_list **stack_b, int list_len);
 
 #endif
+
+
+
+/* typedef struct s_stack
+{
+	int				stack_size_total;
+	int				max_value;
+	int				min_value;
+	struct s_list 	list_element;
+	struct s_stack	*next;
+}					t_stack; */

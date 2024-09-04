@@ -6,7 +6,7 @@
 #    By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 22:04:51 by jschmitz          #+#    #+#              #
-#    Updated: 2024/09/02 17:22:18 by jschmitz         ###   ########.fr        #
+#    Updated: 2024/09/04 17:56:27 by jschmitz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS =	libft/ft_substr.c \
 		push_swap_files/create_stack.c \
 		push_swap_files/ft_isalnumextended.c \
 		push_swap_files/allowed_moves.c \
-		push_swap_files/sorting_algorithm.c
+		push_swap_files/sorting_algorithm.c \
+		push_swap_files/list_free.c
 
 OBJ = $(SRCS:.c=.o)
 

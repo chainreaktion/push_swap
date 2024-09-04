@@ -2,12 +2,16 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../libft"
 		}
 	],
 	"settings": {
 		"files.associations": {
 			"type_traits": "c",
-			"push_swap.h": "c"
+			"push_swap.h": "c",
+			"libft.h": "c"
 		}
 	}
 }
