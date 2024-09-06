@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_free.c                                        :+:      :+:    :+:   */
+/*   big_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 16:51:52 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/06 20:07:13 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/09/04 19:24:25 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	list_free(t_list **stack)
+int	big_sort(t_list **stack_a, t_list **stack_b, int list_len)
 {
-	t_list	*current;
-	t_list	*temp;
 
-	if (!stack || !(*stack))
-		return ;
-	current = *stack;
-	while (current->next != *stack)
-	{
-		temp = current;
-		current = current->next;
-		free(temp);
-	}
-	free(current);
-	*stack = NULL;
+	
 }

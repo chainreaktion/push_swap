@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/06 22:09:20 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:22:27 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,27 @@ int	main(int argc, char **argv)
 	list_len = create_linked_list(argv, &stack_a);
 	if (list_len == 0)
 		return (printf("Errorstack_a\n"), 0);
-/* 	printf("stack a before:\n");
+	printf("stack a before:\n");
 	print_stack(stack_a);
 	if (stack_sorted(&stack_a) == 0)
 		printf("stack a sorted.\n");
 	else
-		printf("stack a not sorted.\n"); */
-/*  0	printf("stack b before:\n");
-	print_stack(stack_b);*/
+		printf("stack a not sorted.\n");
+
+	printf("stack b before:\n");
+	print_stack(stack_b);
 /* 	if (stack_sorted(&stack_b) == 0)
 		printf("stack b sorted.\n");
 	else
 		printf("stack b not sorted.\n"); */
-	printf("list_len = %d\n", list_len);
 	pick_algorithm(&stack_a, &stack_b, list_len);
-/* 	printf("stack a after algo:\n");
+	printf("stack a after algo:\n");
 	print_stack(stack_a);
 	if (stack_sorted(&stack_a) == 0)
 		printf("stack a sorted.\n");
 	else
 		printf("stack a not sorted.\n");
 	printf("stack b after algo:\n");
-	print_stack(stack_b); */
-	list_free(&stack_a);
-	list_free(&stack_b);
+	print_stack(stack_b);
 	return (0);
 }
