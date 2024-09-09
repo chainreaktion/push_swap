@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/09 20:50:28 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:43:55 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_list	*create_new_node(char *input, int start)
 	while (input[start + len] != '\0' && input[start + len] != ' ')
 		len++;
 	next_num = ft_substr(input, start, len);
+//printf("next_num: %s\n", next_num);
 	if (next_num == NULL)
 		return (free(new_node), NULL);
 	num = atol(next_num);
@@ -69,30 +70,29 @@ int	add_new_node(t_list **stack, char *input, int start)
 int	error_check_list(t_list **stack)
 {
 	t_list	*temp;
-	t_list	*next_node;
+	t_list	*next;
 
 	temp = *stack;
-	while (temp->next != *stack)
+	while (temp != *stack)
 	{
-		next_node = temp->next;
-		while (next_node != *stack)
+		while (next != *stack)
 		{
-			if (temp->data == next_node->data)
+			if (temp->data == next->data)
 				return (1);
-			next_node = next_node->next;
+			next = next->next;
 		}
 		temp = temp->next;
 	}
 	return (0);
 }
 
-//TOO LONG
+//too long
 size_t	create_linked_list(char **input, t_list **stack)
 {
 	size_t	list_len;
 	int		i;
 	int		j;
-	int		output;
+	int	output;
 
 	list_len = 0;
 	i = 1;
@@ -109,7 +109,7 @@ size_t	create_linked_list(char **input, t_list **stack)
 				if (input[i][j] == '\0')
 				{
 					i++;
-					break ;
+					break;
 				}
 			}
 			output = add_new_node(stack, input[i], j);
@@ -130,3 +130,4 @@ size_t	create_linked_list(char **input, t_list **stack)
 	}
 	return (list_len);
 }
+

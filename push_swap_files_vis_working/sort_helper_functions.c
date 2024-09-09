@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_structures.c                                  :+:      :+:    :+:   */
+/*   sort_helper_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 16:51:52 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/09 18:49:47 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/09/05 13:19:34 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/09/09 20:40:59 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	list_free(t_list **stack)
+void	calc_borders(t_list **stack_a, int *min, int *max)
 {
-	t_list	*current;
 	t_list	*temp;
 
-	if (!stack || !(*stack))
-		return ;
-	current = *stack;
-	while (current->next != *stack)
+//	printf("Entered calc borders\n");
+	temp = *stack_a;
+	*min = temp->data;
+	*max = temp->data;
+	while (temp->next != *stack_a)
 	{
-		temp = current;
-		current = current->next;
-		free(temp);
+		if (temp->data > *max)
+		{
+			*max = temp->data;
+		}
+		else if (temp->data < *min)
+		{
+			*min = temp->data;
+		}
+		temp = temp->next;
 	}
-	free(current);
-	*stack = NULL;
 }
 
-/* void	index_free(t_index *chunks)
+/* int	calc_push_cost(t_list **stack_a, )
 {
-	if (!chunks || !(*stack))
-		return ;
 
 
-} */
+}  */

@@ -6,18 +6,19 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 13:55:22 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/10 00:39:58 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:45:13 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 //sa ou sb
-void	swap_first_elements(t_list **stack, t_index *chunks, char *move)
+void	swap_first_elements(t_list **stack, char stack_name)
 {
-	t_list	*first;
-	t_list	*second;
-	t_list	*first_prev;
-	t_list	*second_next;
+//swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements).
+	t_list *first;
+	t_list *second;
+	t_list *first_prev;
+	t_list *second_next;
 
 	if (*stack == NULL || (*stack)->next == *stack)
 		return ;
@@ -36,21 +37,23 @@ void	swap_first_elements(t_list **stack, t_index *chunks, char *move)
 	first->prev = second;
 
 	*stack = second;
-	move_combo(chunks, move);
+	//c is the case when
+	if (stack_name != 'c')
+		printf("s%c\n", stack_name);
 	return ;
 }
 
-/* //ss = sa & sb
+//ss = sa & sb
 void	swap_a_and_b(t_list **stack_a, t_list **stack_b)
 {
 	//ss : sa and sb at the same time.
 	swap_first_elements(stack_a, 'c');
 	swap_first_elements(stack_b, 'c');
 	printf("ss\n");
-} */
+}
 
 //TOO LONG
-void	push_stack(t_list **stack_a, t_list **stack_b, t_index *chunks, char *move)
+void	push_stack(t_list **stack_a, t_list **stack_b, char stack_name)
 {
 	t_list	*first_a;
 	t_list	*first_b;
@@ -89,31 +92,31 @@ void	push_stack(t_list **stack_a, t_list **stack_b, t_index *chunks, char *move)
 		first_a->prev = b_prev;
 	}
 	*stack_b = first_a;
-	move_combo(chunks, move);
+	printf("p%c\n", stack_name);
 }
 
-void	rotate_stack(t_list **stack, t_index *chunks, char *move)
+void	rotate_stack(t_list **stack, char stack_name)
 {
 	*stack = (*stack)->next;
-	move_combo(chunks, move);
+	printf("r%c\n", stack_name);
 }
 
-/* void	rotate_both_stacks(t_list **stack_a, t_list **stack_b)
+void	rotate_both_stacks(t_list **stack_a, t_list **stack_b)
 {
 	*stack_a = (*stack_a)->next;
 	*stack_b = (*stack_b)->next;
 	printf("rr\n");
-} */
-
-void	reverse_rotate_stack(t_list **stack, t_index *chunks, char *move)
-{
-	*stack = (*stack)->prev;
-	move_combo(chunks, move);
 }
 
-/* void	reverse_rotate_both_stacks(t_list **stack_a, t_list **stack_b)
+void	reverse_rotate_stack(t_list **stack, char stack_name)
+{
+	*stack = (*stack)->prev;
+	printf("rr%c\n", stack_name);
+}
+
+void	reverse_rotate_both_stacks(t_list **stack_a, t_list **stack_b)
 {
 	*stack_a = (*stack_a)->prev;
 	*stack_b = (*stack_b)->prev;
 	printf("rrr\n");
-} */
+}

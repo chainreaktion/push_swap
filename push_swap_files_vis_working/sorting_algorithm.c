@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:04:47 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/10 01:33:06 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/10 01:06:21 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,31 @@ int	stack_sorted(t_list **stack)
 	return (0);
 }
 
-void	sort_stack_three(t_list **stack_a, t_index *chunks)
+void	sort_stack_three(t_list **stack_a)
 {
 //	printf("Entered sort_stack_three\n");
 	while (stack_sorted(stack_a) == 1)
 	{
 		if ((*stack_a)->data > (*stack_a)->next->data && (*stack_a)->data > (*stack_a)->prev->data)
 		{
-			rotate_stack(stack_a, chunks, "ra\n");
+			rotate_stack(stack_a, 'a');
 		}
 		else if ((*stack_a)->data < (*stack_a)->next->data && (*stack_a)->data > (*stack_a)->prev->data)
 		{
-			reverse_rotate_stack(stack_a, chunks, "rra\n");
+			reverse_rotate_stack(stack_a, 'a');
 		}
 		else if ((*stack_a)->data == (*stack_a)->prev->data)
 		{
-			reverse_rotate_stack(stack_a, chunks, "rra\n");
+			reverse_rotate_stack(stack_a, 'a');
 		}
 		else
 		{
-			swap_first_elements(stack_a, chunks, "sa\n");
+			swap_first_elements(stack_a, 'a');
 		}
 	}
 }
 
-void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *chunks)
+void	sort_stack_five(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*temp;
 
@@ -72,37 +72,34 @@ void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *chunks)
 		if ((temp->data == min) || (temp->data == max))
 		{
 			//printf("Entered if condition\n");
-			push_stack(stack_a, stack_b, chunks, "pb\n");
+			push_stack(stack_a, stack_b, 'b');
 			//print_stack(*stack_a);
 		}
 		temp = temp->next;
 	}
 	//print_stack(*stack_a);
-	sort_stack_three(stack_a, chunks);
+	sort_stack_three(stack_a);
 	while ((*stack_b) != NULL)
 	{
 		if ((*stack_b)->data == min || (*stack_b)->next == (*stack_b))
-			push_stack(stack_b, stack_a, chunks, "pa\n");
+			push_stack(stack_b, stack_a, 'a');
 		else
-			rotate_stack(stack_b, chunks, "rb\n");
+			rotate_stack(stack_b, 'b');
 	}
 	if (stack_sorted(stack_a) != 0)
-		rotate_stack(stack_a, chunks, "ra\n");
+		rotate_stack(stack_a, 'a');
 }
 
 void	pick_algorithm(t_list **stack_a, t_list **stack_b, int list_len)
 {
 	t_index	*chunks;
 
-	//number of chunks that will be created in b (square root of the total number of ints, or list_len)
 	chunks = (t_index *)malloc(sizeof(t_index));
 	if (!chunks)
 	{
-		printf("Memory allocation chunks failed\n");
+		//printf("Memory allocation chunks failed\n");
 		return;
 	}
-	chunks->list_len = list_len;
-	//chunks->moves = NULL;
 	if (stack_sorted(stack_a) == 0)
 		printf("Stack already sorted\n");
 	if (list_len == 2)
@@ -113,8 +110,6 @@ void	pick_algorithm(t_list **stack_a, t_list **stack_b, int list_len)
 		sort_stack_five(stack_a, stack_b, chunks);
 	else
 	{
-		//big_sort(stack_a, stack_b, list_len);
-		//big_sort(stack_a, stack_b);
 		big_sort(stack_a, stack_b, list_len, chunks);
 	}
 }

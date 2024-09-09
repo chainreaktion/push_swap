@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_structures.c                                  :+:      :+:    :+:   */
+/*   list_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:51:52 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/09 18:49:47 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:07:13 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,3 @@ void	list_free(t_list **stack)
 	free(current);
 	*stack = NULL;
 }
-
-/* void	index_free(t_index *chunks)
-{
-	if (!chunks || !(*stack))
-		return ;
-
-
-} */

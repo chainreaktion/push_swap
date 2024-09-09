@@ -6,7 +6,7 @@
 #    By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 22:04:51 by jschmitz          #+#    #+#              #
-#    Updated: 2024/09/06 18:11:11 by jschmitz         ###   ########.fr        #
+#    Updated: 2024/09/10 01:15:59 by jschmitz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CC = cc
 SRCS =	libft/ft_substr.c \
 		libft/ft_strlen.c \
 		libft/ft_atol.c \
+		libft/ft_strncmp.c \
+		libft/ft_strlcpy.c \
 		push_swap_files/push_swap.c \
 		push_swap_files/create_stack.c \
 		push_swap_files/ft_isalnumextended.c \
@@ -24,7 +26,9 @@ SRCS =	libft/ft_substr.c \
 		push_swap_files/sorting_algorithm.c \
 		push_swap_files/sort_helper_functions.c \
 		push_swap_files/big_sort.c \
-		push_swap_files/list_free.c
+		push_swap_files/list_free.c \
+		push_swap_files/circ_list_len.c \
+		push_swap_files/ft_sqrt.c
 
 OBJ = $(SRCS:.c=.o)
 
@@ -32,7 +36,9 @@ HEADER_DIR = ./headerfiles
 
 HEADER = $(HEADER_DIR)/libft.h $(HEADER_DIR)/push_swap.h
 
-CFLAGS = -Wall -Wextra -Werror -I$(HEADER_DIR)
+##remove  g
+
+CFLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
 
 RM = rm -f
 

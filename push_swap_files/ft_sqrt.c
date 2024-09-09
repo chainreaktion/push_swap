@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_structures.c                                  :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 16:51:52 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/09 18:49:47 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/09/08 22:56:30 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/09/08 23:40:38 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	list_free(t_list **stack)
+int	ft_sqrt(int nb)
 {
-	t_list	*current;
-	t_list	*temp;
+	int	sqrt;
 
-	if (!stack || !(*stack))
-		return ;
-	current = *stack;
-	while (current->next != *stack)
-	{
-		temp = current;
-		current = current->next;
-		free(temp);
-	}
-	free(current);
-	*stack = NULL;
+	if (nb < 0)
+		return (0);
+	sqrt = 1;
+	while (sqrt * sqrt < nb)
+		++sqrt;
+	//if (sqrt * sqrt == nb)
+	return (sqrt);
+	//return (0);
 }
-
-/* void	index_free(t_index *chunks)
-{
-	if (!chunks || !(*stack))
-		return ;
-
-
-} */

@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:19:34 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/06 17:57:39 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/10 01:32:30 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,71 @@ void	calc_borders(t_list **stack_a, int *min, int *max)
 	}
 }
 
-//receives stack_a and pointers to the min and max value
-/* void	calc_borders(t_list **stack_a)
+//array of two strings in the index struct. Each move sends a string to the structurr
+//if there already is a move in the first str, see if they can be combined, otherwise
+//replace the first move with the incoming
+int	pair_check(t_index *chunks,  char *move2)
 {
-	//not sure about the booleans...
-	t_list	*temp;
+	if (ft_strncmp(chunks->moves, "sa\n", 3) == 0
+		&& ft_strncmp(move2, "sb\n", 3) == 0)
+	{
+		ft_strlcpy(chunks->moves, "ss\n", 4);
+		return (1);
+	}
+	else if (ft_strncmp(chunks->moves, "ra\n", 3) == 0
+		&& ft_strncmp(move2, "rb\n", 3) == 0)
+	{
+		ft_strlcpy(chunks->moves, "rr\n", 4);
+		return (1);
+	}
+	else if (ft_strncmp(chunks->moves, "rra\n", 4) == 0
+		&& ft_strncmp(move2, "rrb\n", 4) == 0)
+	{
+		ft_strlcpy(chunks->moves, "rrr\n", 5);
+		return (1);
+	}
+	else if (ft_strncmp(move2, "pa\n", 3) == 0 || ft_strncmp(move2, "pb\n", 3) == 0)
+		return (0);
+	else
+		return (2);
+}
 
-	printf("Entered calc borders\n");
+void	move_combo(t_index *chunks, char *move)
+{
+	int	pairs;
 
-	temp = *stack_a;
-	temp->min = temp->data;
-	temp->max = temp->data;
-	while (temp->next != *stack_a)
+	pairs = pair_check(chunks, move);
+	//if (chunks->moves == NULL || pairs == 2)
+	if (pairs == 2)
+		ft_strlcpy(chunks->moves, move, ft_strlen(move) + 1);
+	else
 	{
-		if (temp->data > temp->max)
-		{
-			temp->max = temp->data;
-			temp->max = true;
-		}
-		else if (temp->data < temp->min)
-		{
-			temp->min = temp->data;
-			temp->min = true;
-		}
-		temp = temp->next;
+		printf("%s", chunks->moves);
+		if (pairs == 0)
+			printf("%s", move);
 	}
-	if (temp->data > temp->max)
+}
+//puts all the output moves into a string in order to combine them
+/* void	create_moves(t_index *chunks, char *move)
+{
+	if (chunks->output_moves == NULL)
+	chunks->output_moves = malloc(sizeof(char));
+	if (move)
+}
+
+void	parse_ouput_moves(t_index *chunks)
+{
+	while (chunks->output_moves != '\0')
 	{
-		temp->max = temp->data;
-		temp->max = true;
+
+
+
 	}
-	else if (temp->data < temp->min)
-	{
-		temp->min = temp->data;
-		temp->min = true;
-	}
-	temp = temp->next;
-	printf("Max=%d, Min=%d\n", temp->max, temp->min);
+	free()
+	free(chunks);
 } */
-/*
-int	calc_push_cost(t_list **stack_a, )
+/* int	calc_push_cost(t_list **stack_a, )
 {
 
 
-} */
+}  */
