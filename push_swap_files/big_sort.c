@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 02:05:31 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:18:40 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ int	calc_chunk_size(t_list **stack, int min, int max)
 //if chunk is smaller than it should be  > increase max
 //if chunk is bigger than it should be > decrease max
 //goal is the size the chunk should have when the lever is set correctly
-int	adjust_lever(t_list **stack_a, int min, int max_rel, int goal)
+int	adjust_lever(t_list **stack_a, t_index *vars, int min, int max_rel)
 {
 	int	chunk_size;
+	int	goal;
 
+	goal = vars->chunk_num;
+	if (vars->list_len % vars->chunk_num != 0)
+		goal--;
 	chunk_size = calc_chunk_size(stack_a, min, max_rel);
 	//printf("CHUNK SIZE:%d\nGoal:%d min:%d max:%d\n\n", chunk_size, goal, min, max_rel);
 	//sleep(1);
@@ -47,15 +51,15 @@ int	adjust_lever(t_list **stack_a, int min, int max_rel, int goal)
 	else if (chunk_size > goal)
 	{
 		max_rel--;
-		return (adjust_lever(stack_a, min, max_rel, goal));
+		return (adjust_lever(stack_a, vars, min, max_rel));
 	}
 	else
 	{
 		max_rel++;
-		return (adjust_lever(stack_a, min, max_rel, goal));
+		return (adjust_lever(stack_a, vars, min, max_rel));
 	}
 }
-//max = index of the max lever
+//max = chunk_num and index of the max lever
 void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 {
 	int	lev;
@@ -66,7 +70,7 @@ void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 	vars->max_value = vars->levers[max];
 	lev = 1;
 	//printf("Min = %d\n", vars->levers[0]);
-//	printf("Max = %d\n", vars->levers[max]);
+	//printf("Max = %d\n", vars->levers[max]);
 	//if (vars->chunk_num % 2 != 0)
 	//	new_max = vars->chunk_num - 1;
 	while (lev < max)
@@ -85,14 +89,14 @@ void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 		//adjusting lever so that the number of elements contained is correct
 		//adjust_lever(stack_a, &(vars->levers[lev - 1]), &(vars->levers[lev]), new_max);
 		//printf("Lev = %d\n", lev);
-		vars->levers[lev] = adjust_lever(stack_a, vars->levers[lev - 1], vars->levers[lev], vars->chunk_num);
+		vars->levers[lev] = adjust_lever(stack_a, vars, vars->levers[lev - 1], vars->levers[lev]);
 		//printf("New lever = %d\n", vars->levers[lev]);
 		lev++;
 	}
-	/* lev = 1;
+/* 	lev = 1;
 	printf("Chunk_num: %d\n", vars->chunk_num);
 	printf("Min: %d\n", vars->levers[0]);
-	while (lev < max - 1)
+	while (lev < max)
 	{
 		printf("Lever %d: %d\n", lev, vars->levers[lev]);
 		lev++;
@@ -274,7 +278,7 @@ void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *vars)
 	vars->chunk_num = chunk_num;
 //	printf("chunk_num = %d\n", vars->chunk_num);
 	//(void)stack_b;
-	iterate_all_levers(stack_a, vars, vars->chunk_num - 1);
+	iterate_all_levers(stack_a, vars, vars->chunk_num);
 	make_chunks(stack_a, stack_b, vars, vars->chunk_num);
 	//sort_into_a(stack_a, stack_b, chunks, chunks->chunk_num);
 

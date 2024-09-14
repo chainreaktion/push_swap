@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/13 23:43:15 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:16:54 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *chunks);
 void	calculate_piles(t_list **stack_a, int *lever, int list_len);
 void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *chunks);
 int		calc_chunk_size(t_list **stack, int min, int max);
-int		adjust_lever(t_list **stack_a, int min, int max_rel, int goal);
+int		adjust_lever(t_list **stack_a, t_index *vars, int min, int max_rel);
 void	iterate_all_levers(t_list **stack_a, t_index *chunks, int goal);
 void	initialize_array(t_index *chunks, int chunk_num);
 void	push_to_b(t_list **stack_a, t_list **stack_b, t_index *chunks, int n);
