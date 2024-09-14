@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:19:34 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/13 22:03:23 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 04:38:01 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	calc_borders(t_list **stack_a, int *min, int *max)
 {
 	t_list	*temp;
 
-//	printf("Entered calc borders\n");
 	temp = *stack_a;
 	*min = temp->data;
 	*max = temp->data;
@@ -30,7 +29,6 @@ void	calc_borders(t_list **stack_a, int *min, int *max)
 		{
 			*min = temp->data;
 		}
-
 		if (temp->next == *stack_a)
 			break ;
 		temp = temp->next;

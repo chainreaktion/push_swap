@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 02:16:54 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 04:03:03 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ typedef struct	s_index
 	int			*levers;
 	int			chunk_num;
 	int			max_value;
+	int			cost_r_max;
+	int			cost_rr_max;
+	int			cost_r_min;
+	int			cost_rr_min;
 	char		moves[5];
 }				t_index;
 
@@ -80,8 +84,11 @@ void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *chunks, int 
 void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *chunks, int goal);
 //sorting back
 int		count_elem(t_list **stack, int n);
-void	sort_into_a(t_list **stack_a, t_list **stack_b, t_index *vars, int n);
-void	add_max_rel(t_list **stack_a, t_list **stack_b, t_index *vars, int n);
+void	push_all_back(t_list **stack_a, t_list **stack_b, t_index *vars);
+void	empty_chunk(t_list **stack_a, t_list ** stack_b, t_index *vars, int n);
+int		calc_cost_r_max(t_list **stack_b, int max);
+int	calc_cost_rr_max(t_list **stack_b, int max);
+void	push_max_or_min(t_list **stack_a, t_list **stack_b, t_index *vars, int max);
 
 //test code
 void	print_stack(t_list *stack);

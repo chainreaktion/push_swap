@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../libft"
+		},
+		{
+			"path": "../backup_push_swap"
 		}
 	],
 	"settings": {

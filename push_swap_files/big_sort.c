@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 02:18:40 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 04:44:37 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,39 +69,18 @@ void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 	calc_borders(stack_a, &(vars->levers[0]), &(vars->levers[max]));
 	vars->max_value = vars->levers[max];
 	lev = 1;
-	//printf("Min = %d\n", vars->levers[0]);
-	//printf("Max = %d\n", vars->levers[max]);
-	//if (vars->chunk_num % 2 != 0)
-	//	new_max = vars->chunk_num - 1;
 	while (lev < max)
 	{
+		//naively set next lever to former lever + ideal chunk-size
 		//avoid going over the maximum input value
 		estim = vars->max_value / vars->chunk_num;
 		vars->levers[lev] = vars->levers[lev - 1] + estim;
 		if (vars->levers[lev] >= vars->max_value)
 			vars->levers[lev] = vars->max_value - 1;
-		//naively set next lever to former lever + ideal chunk-size
-		//else
-		//vars->levers[lev] = vars->levers[lev - 1] + new_max;
-
-	//	vars->levers[lev] = vars->levers[lev - 1] + vars->chunk_num;
-
 		//adjusting lever so that the number of elements contained is correct
-		//adjust_lever(stack_a, &(vars->levers[lev - 1]), &(vars->levers[lev]), new_max);
-		//printf("Lev = %d\n", lev);
 		vars->levers[lev] = adjust_lever(stack_a, vars, vars->levers[lev - 1], vars->levers[lev]);
-		//printf("New lever = %d\n", vars->levers[lev]);
 		lev++;
 	}
-/* 	lev = 1;
-	printf("Chunk_num: %d\n", vars->chunk_num);
-	printf("Min: %d\n", vars->levers[0]);
-	while (lev < max)
-	{
-		printf("Lever %d: %d\n", lev, vars->levers[lev]);
-		lev++;
-	}
-	printf("Max: %d\n", vars->levers[max]); */
 }
 
 void	initialize_array(t_index *vars, int chunk_num)
@@ -126,7 +105,6 @@ void	initialize_array(t_index *vars, int chunk_num)
 //lev = the lever between the two chunks that are being pushed
 void	push_to_b(t_list **stack_a, t_list **stack_b, t_index *vars, int lev)
 {
-	//printf("Lev = %d\nLever = %d\n", lev, vars->levers[lev]);
 	//case if value is between min and current lever
 	if ((*stack_a)->data >= vars->levers[lev - 1] && (*stack_a)->data < vars->levers[lev])
 	{
@@ -159,7 +137,6 @@ void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int le
 	int i = 0;
 
 	i = circ_list_len(stack_a);
-	//while (calc_chunk_size(stack_a, vars->levers[lev - 1], vars->levers[lev + 1]) > 0)
 	while (i > 0)
 	{
 		if ((*stack_a)->data == vars->max_value)
@@ -184,13 +161,9 @@ void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int goal)
 		pairs--;
 	while (lev < pairs)
 	{
-		//printf("Creating chunks between %d and %d, lever is %d\nMax is %d or %d\n", vars->levers[lev - 1], vars->levers[lev + 1], vars->levers[lev], vars->levers[12], vars->levers[13]);
 		create_two_chunks(stack_a, stack_b, vars, lev);
 		lev += 2;
 	}
-	//printf("end\n");
-	//push the rest to b until only max is left in a
-	//printf("Lev after last pair = %d\nCHunk_num = %d\n", lev, vars->chunk_num);
 	while ((*stack_a)->next != *stack_a)
 	{
 		(*stack_a)->chunk = lev;
@@ -222,53 +195,105 @@ int	count_elem(t_list **stack, int n)
 	return (res);
 }
 
-void	sort_into_a(t_list **stack_a, t_list **stack_b, t_index *vars, int n)
+
+void	push_all_back(t_list **stack_a, t_list **stack_b, t_index *vars)
 {
-	while ((*stack_b) != NULL)
+	int	n;
+
+	n = vars->chunk_num;
+	while (n > 0)
 	{
-		add_max_rel(stack_a, stack_b, vars, n);
+		empty_chunk(stack_a, stack_b, vars, n);
 		n--;
 	}
+	push_stack(stack_b, stack_a, vars, "pa\n");
 }
 
-void	add_max_rel(t_list **stack_a, t_list **stack_b, t_index *vars, int n)
+void	empty_chunk(t_list **stack_a, t_list ** stack_b, t_index *vars, int n)
 {
 	int	min;
 	int	max;
+	int	elem_in_chunk;
 
 	min = 0;
 	max = 0;
-
-	while (count_elem(stack_b, n) > 0)
+	calc_borders(stack_b, &min, &max);
+	elem_in_chunk = calc_chunk_size(stack_b, vars->levers[n - 1], max);
+	while (elem_in_chunk > 0)
 	{
 		calc_borders(stack_b, &min, &max);
-		while ((*stack_a)->data != max)
-		{
-			if ((*stack_b)->ind == 1 && (*stack_b)->chunk == n)
-			{
-				(*stack_b)->ind = -1;
-				rotate_stack(stack_b, vars, "rb\n");
-			}
-			else if ((*stack_b)->ind == -1 && (*stack_b)->chunk == n)
-			{
-				(*stack_b)->ind = 1;
-				reverse_rotate_stack(stack_b, vars, "rrb\n");
-			}
-		}
-		push_stack(stack_b, stack_a, vars, "pa\n");
+		push_max_or_min(stack_a, stack_b, vars, max);
+		elem_in_chunk--;
 	}
-	/* while (count_elem(stack_b, n) > 0)
-	{
-		if ((*stack_b)->chunk == n && (*stack_b)->data < (*stack_a)->data)
-			push_stack(stack_b, stack_a, vars, "pa\n");
-		else if ((*stack_b)->ind = -1)
-		{
-			(*stack_b)->ind = -1;
-			rotate_stack(stack_a, vars, "rb\n");
-		}
-
-	} */
 }
+
+int	calc_cost_r_max(t_list **stack_b, int max)
+{
+	t_list	*temp;
+	int		res;
+
+	temp = *stack_b;
+	res = 0;
+	while (temp->data != max)
+	{
+		temp = temp->next;
+		res++;
+	}
+	return (res);
+}
+
+int	calc_cost_rr_max(t_list **stack_b, int max)
+{
+	t_list	*temp;
+	int		res;
+
+	temp = *stack_b;
+	res = 0;
+	while (temp->data != max)
+	{
+		temp = temp->prev;
+		res++;
+	}
+	return (res);
+}
+
+//void	add_min_rel()
+
+//naive version for first try
+void	push_max_or_min(t_list **stack_a, t_list **stack_b, t_index *vars, int max)
+{
+	int	cost_r_max;
+	int	cost_rr_max;
+
+	//printf("enter push max or min\n");
+	/* while (count_elem(stack_b, n) > 0)
+	{ */
+	cost_r_max = calc_cost_r_max(stack_b, max);
+	cost_rr_max = calc_cost_rr_max(stack_b, max);
+	//printf("cost_r_max = %d\n cost_rr_max = %d\n", cost_r_max, cost_rr_max);
+	if (cost_r_max < cost_rr_max)
+	{
+		while (cost_r_max > 0)
+		{
+			rotate_stack(stack_b, vars, "rb\n");
+			//printf("Aftr move, value on top = %d\n", (*stack_b)->data);
+			//reverse_rotate_stack(stack_b, vars, "rrb\n");
+			cost_r_max--;
+		}
+	}
+	else
+	{
+		while (cost_rr_max > 0)
+		{
+			//rotate_stack(stack_b, vars, "rb\n");
+			//printf("Aftr move, value on top = %d\n", (*stack_b)->data);
+			reverse_rotate_stack(stack_b, vars, "rrb\n");
+			cost_rr_max--;
+		}
+	}
+	push_stack(stack_b, stack_a, vars, "pa\n");
+}
+
 void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *vars)
 {
 	int		chunk_num;
@@ -276,11 +301,8 @@ void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *vars)
 	chunk_num = ft_sqrt(list_len);
 	initialize_array(vars, chunk_num);
 	vars->chunk_num = chunk_num;
-//	printf("chunk_num = %d\n", vars->chunk_num);
-	//(void)stack_b;
 	iterate_all_levers(stack_a, vars, vars->chunk_num);
 	make_chunks(stack_a, stack_b, vars, vars->chunk_num);
-	//sort_into_a(stack_a, stack_b, chunks, chunks->chunk_num);
-
+	push_all_back(stack_a, stack_b, vars);
 	free (vars);
 }

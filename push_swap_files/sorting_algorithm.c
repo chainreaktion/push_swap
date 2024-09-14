@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:04:47 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/13 20:29:06 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 04:37:06 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	pick_algorithm(t_list **stack_a, t_list **stack_b, int list_len)
 	if (!vars)
 	{
 		//printf("Memory allocation chunks failed\n");
-		return ;
+		exit (0);
 	}
 	vars->list_len = list_len;
 	if (stack_sorted(stack_a) == 0)
