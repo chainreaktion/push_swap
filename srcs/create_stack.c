@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 20:15:55 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:41:56 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ t_list	*create_new_node(char *input, int start)
 	num = atol(next_num);
 	if (num > INT_MAX || num < INT_MIN)
 	{
-		write (2, "Error\n", 6);
 		free (next_num);
-		exit (1);
+		error_message();
 	}
 	new_node->data = (int)num;
 	free (next_num);
@@ -82,8 +81,7 @@ void	error_check_list(t_list **stack)
 		{
 			if (temp->data == next_node->data)
 			{
-				write (2, "Error\n", 6);
-				exit (0);
+				error_message();
 			}
 			next_node = next_node->next;
 		}

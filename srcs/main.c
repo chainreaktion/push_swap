@@ -6,11 +6,17 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:00:58 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 21:16:43 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:39:19 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	error_message(void)
+{
+	write (2, "Error\n", 6);
+	exit (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -21,7 +27,7 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc < 3)
-		return (0);
+		error_message();
 	error_check_num(argv, argc);
 	vars = (t_index *)malloc(sizeof(t_index));
 	if (!vars)

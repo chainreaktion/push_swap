@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 14:52:46 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 20:59:27 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:15:38 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 // Returns 1 for valid characters ('0'-'9', space, and '-')
 int	ft_isalnumextended(int arg)
 {
-	return ((arg >= '0' && arg <= '9') || arg == ' ' || arg == '-');
+	return ((arg >= '0' && arg <= '9')
+		|| arg == ' ' || arg == '-' || arg == '+');
+}
+
+int	ft_isalnum(int arg)
+{
+	return ((arg >= '0' && arg <= '9'));
 }
 
 void	error_check_num(char **argv, int argc)
@@ -31,10 +37,10 @@ void	error_check_num(char **argv, int argc)
 		while (argv[i][j] != '\0')
 		{
 			if (ft_isalnumextended(argv[i][j]) == 0)
-			{
-				write (2, "Error\n", 6);
-				exit (1);
-			}
+				error_message();
+			if ((argv[i][j] == '-' || argv[i][j] == '+')
+				&& ft_isalnum(argv[i][j + 1]) == 0)
+				error_message();
 			j++;
 		}
 		i++;

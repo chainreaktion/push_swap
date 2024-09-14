@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 19:31:59 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:06:56 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ int		calc_cost_rr_max(t_list **stack_b, int max);
 int		calc_cost_r_max(t_list **stack_b, int max);
 //test code
 void	print_stack(t_list *stack);
+void	error_message(void);
+int		ft_isalnum(int arg);
 
 #endif

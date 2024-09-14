@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:04:47 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 21:19:54 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:36:26 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	sort_stack_three(t_list **stack_a, t_index *vars)
 	int	last;
 	int	next_num;
 
+	//vars->levers = NULL;
 	while (stack_sorted(stack_a) == 1)
 	{
 		current = (*stack_a)->data;
@@ -40,6 +41,7 @@ void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *vars)
 
 	min = 0;
 	max = 0;
+	//vars->levers = NULL;
 	calc_borders(stack_a, &min, &max);
 	temp = *stack_a;
 	while (((*stack_a)->next->next->next) != *stack_a)
