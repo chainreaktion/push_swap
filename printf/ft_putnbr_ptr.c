@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putnbr_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:01:17 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:28 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/07/04 14:11:19 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/07/08 22:00:51 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libftprintf.h"
 
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdint.h>
+void	ft_putnbr_ptr(int n, int *count)
+{
+	long	nb;
 
-int		ft_atoi(const char *nptr);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nitems, size_t size);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-#endif
+	nb = (long)n;
+	if (nb < 0)
+	{
+		*count += write (1, "-", 1);
+		nb = -nb;
+	}
+	if (nb > 9)
+	{
+		ft_putnbr_ptr((int)(nb / 10), count);
+		ft_putnbr_ptr((int)(nb % 10), count);
+	}
+	else
+	{
+		nb = (int)(nb + '0');
+		*count += write (1, &nb, 1);
+	}
+}

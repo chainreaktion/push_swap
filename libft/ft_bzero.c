@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:01:17 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:28 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/05/21 13:33:32 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/09/14 17:04:40 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdint.h>
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p_temp;
 
-int		ft_atoi(const char *nptr);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nitems, size_t size);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-#endif
+	p_temp = (unsigned char *)s;
+	while (n > 0)
+	{
+		*p_temp = '\0';
+		p_temp++;
+		n--;
+	}
+}

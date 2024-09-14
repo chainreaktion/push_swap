@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   cost_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:01:17 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:28 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/09/14 16:18:34 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/09/14 16:19:04 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "push_swap.h"
 
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdint.h>
+int	calc_cost_r_max(t_list **stack_b, int max)
+{
+	t_list	*temp;
+	int		res;
 
-int		ft_atoi(const char *nptr);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nitems, size_t size);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+	temp = *stack_b;
+	res = 0;
+	while (temp->data != max)
+	{
+		temp = temp->next;
+		res++;
+	}
+	return (res);
+}
 
-#endif
+int	calc_cost_rr_max(t_list **stack_b, int max)
+{
+	t_list	*temp;
+	int		res;
+
+	temp = *stack_b;
+	res = 0;
+	while (temp->data != max)
+	{
+		temp = temp->prev;
+		res++;
+	}
+	return (res);
+}

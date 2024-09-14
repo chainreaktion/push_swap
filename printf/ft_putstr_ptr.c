@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putstr_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 12:01:17 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:28 by jschmitz         ###   ########.fr       */
+/*   Created: 2024/05/27 20:22:26 by jschmitz          #+#    #+#             */
+/*   Updated: 2024/07/05 14:52:27 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libftprintf.h"
 
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdint.h>
+void	ft_putstr_ptr(char *s, int *count)
+{
+	int	i;
 
-int		ft_atoi(const char *nptr);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nitems, size_t size);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-#endif
+	i = 0;
+	if (s != NULL)
+	{
+		while (s[i])
+		{
+			*count += write (1, &s[i], 1);
+			i++;
+		}
+	}
+	else
+		ft_putstr_ptr("(null)", count);
+}
