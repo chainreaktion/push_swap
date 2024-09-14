@@ -6,7 +6,7 @@
 #    By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 22:04:51 by jschmitz          #+#    #+#              #
-#    Updated: 2024/09/10 01:15:59 by jschmitz         ###   ########.fr        #
+#    Updated: 2024/09/12 18:40:19 by jschmitz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ HEADER = $(HEADER_DIR)/libft.h $(HEADER_DIR)/push_swap.h
 
 ##remove  g
 
-CFLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
+CFLAGS = -Wall -g -Wextra -Werror -I$(HEADER_DIR)
 
 RM = rm -f
 

@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 22:56:30 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/08 23:40:38 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:48:16 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_sqrt(int nb)
 	while (sqrt * sqrt < nb)
 		++sqrt;
 	//if (sqrt * sqrt == nb)
+	//if (nb % sqrt == 0)
+	//	++sqrt;
 	return (sqrt);
 	//return (0);
 }

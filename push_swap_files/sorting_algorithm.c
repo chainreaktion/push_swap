@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:04:47 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/10 01:33:06 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:29:06 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,16 @@ int	stack_sorted(t_list **stack)
 
 void	sort_stack_three(t_list **stack_a, t_index *chunks)
 {
-//	printf("Entered sort_stack_three\n");
 	while (stack_sorted(stack_a) == 1)
 	{
 		if ((*stack_a)->data > (*stack_a)->next->data && (*stack_a)->data > (*stack_a)->prev->data)
-		{
 			rotate_stack(stack_a, chunks, "ra\n");
-		}
 		else if ((*stack_a)->data < (*stack_a)->next->data && (*stack_a)->data > (*stack_a)->prev->data)
-		{
 			reverse_rotate_stack(stack_a, chunks, "rra\n");
-		}
 		else if ((*stack_a)->data == (*stack_a)->prev->data)
-		{
 			reverse_rotate_stack(stack_a, chunks, "rra\n");
-		}
 		else
-		{
 			swap_first_elements(stack_a, chunks, "sa\n");
-		}
 	}
 }
 
@@ -62,22 +53,14 @@ void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *chunks)
 	int		min = 0;
 	int		max = 0;
 
-	//printf("Entered sort stack five\n");
 	calc_borders(stack_a, &min, &max);
-//	printf("Max=%d, Min=%d\n", max, min);
 	temp = *stack_a;
 	while (((*stack_a)->next->next->next) != *stack_a)
 	{
-	//	printf("Entered while loop\n");
 		if ((temp->data == min) || (temp->data == max))
-		{
-			//printf("Entered if condition\n");
 			push_stack(stack_a, stack_b, chunks, "pb\n");
-			//print_stack(*stack_a);
-		}
 		temp = temp->next;
 	}
-	//print_stack(*stack_a);
 	sort_stack_three(stack_a, chunks);
 	while ((*stack_b) != NULL)
 	{
@@ -92,29 +75,24 @@ void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *chunks)
 
 void	pick_algorithm(t_list **stack_a, t_list **stack_b, int list_len)
 {
-	t_index	*chunks;
+	t_index	*vars;
 
-	//number of chunks that will be created in b (square root of the total number of ints, or list_len)
-	chunks = (t_index *)malloc(sizeof(t_index));
-	if (!chunks)
+ //structure"chunks" for sorting
+	vars = (t_index *)malloc(sizeof(t_index));
+	if (!vars)
 	{
-		printf("Memory allocation chunks failed\n");
-		return;
+		//printf("Memory allocation chunks failed\n");
+		return ;
 	}
-	chunks->list_len = list_len;
-	//chunks->moves = NULL;
+	vars->list_len = list_len;
 	if (stack_sorted(stack_a) == 0)
-		printf("Stack already sorted\n");
+		return ;
 	if (list_len == 2)
-		rotate_stack(stack_a, chunks, "ra\n");
+		rotate_stack(stack_a, vars, "ra\n");
 	else if (list_len == 3)
-		sort_stack_three(stack_a, chunks);
+		sort_stack_three(stack_a, vars);
 	else if (list_len <= 5)
-		sort_stack_five(stack_a, stack_b, chunks);
+		sort_stack_five(stack_a, stack_b, vars);
 	else
-	{
-		//big_sort(stack_a, stack_b, list_len);
-		//big_sort(stack_a, stack_b);
-		big_sort(stack_a, stack_b, list_len, chunks);
-	}
+		big_sort(stack_a, stack_b, list_len, vars);
 }

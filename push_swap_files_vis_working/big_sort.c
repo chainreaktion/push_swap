@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/09 21:57:49 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/13 23:36:30 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,17 +144,18 @@ void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *chunks, int 
 }
 
 //push a-values to b according to the chunks
-void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *chunks, int goal)
+//goal = total number of chunks
+void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int goal)
 {
 	int		n;
 
 	n = 1;
 	while (n < goal)
 	{
-		create_two_chunks(stack_a, stack_b, chunks, n);
+		create_two_chunks(stack_a, stack_b, vars, n);
 		n += 2;
 	}
-	while ((*stack_a)->next->next->next != *stack_a)
+	while ((*stack_a)->next != *stack_a)
 	{
 		//push_to_b(stack_a, stack_b, chunks, goal);
 		push_stack(stack_a, stack_b, 'b');

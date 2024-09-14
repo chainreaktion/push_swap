@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:19:34 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/10 01:32:30 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/13 22:03:23 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	calc_borders(t_list **stack_a, int *min, int *max)
 	temp = *stack_a;
 	*min = temp->data;
 	*max = temp->data;
-	while (temp->next != *stack_a)
+	while (1)
 	{
 		if (temp->data > *max)
 		{
@@ -30,6 +30,9 @@ void	calc_borders(t_list **stack_a, int *min, int *max)
 		{
 			*min = temp->data;
 		}
+
+		if (temp->next == *stack_a)
+			break ;
 		temp = temp->next;
 	}
 }
@@ -57,6 +60,24 @@ int	pair_check(t_index *chunks,  char *move2)
 		ft_strlcpy(chunks->moves, "rrr\n", 5);
 		return (1);
 	}
+	else if (ft_strncmp(chunks->moves, "sb\n", 3) == 0
+		&& ft_strncmp(move2, "sa\n", 3) == 0)
+	{
+		ft_strlcpy(chunks->moves, "ss\n", 4);
+		return (1);
+	}
+	else if (ft_strncmp(chunks->moves, "rb\n", 3) == 0
+		&& ft_strncmp(move2, "ra\n", 3) == 0)
+	{
+		ft_strlcpy(chunks->moves, "rr\n", 4);
+		return (1);
+	}
+	else if (ft_strncmp(chunks->moves, "rrb\n", 4) == 0
+		&& ft_strncmp(move2, "rra\n", 4) == 0)
+	{
+		ft_strlcpy(chunks->moves, "rrr\n", 5);
+		return (1);
+	}
 	else if (ft_strncmp(move2, "pa\n", 3) == 0 || ft_strncmp(move2, "pb\n", 3) == 0)
 		return (0);
 	else
@@ -69,13 +90,22 @@ void	move_combo(t_index *chunks, char *move)
 
 	pairs = pair_check(chunks, move);
 	//if (chunks->moves == NULL || pairs == 2)
-	if (pairs == 2)
-		ft_strlcpy(chunks->moves, move, ft_strlen(move) + 1);
-	else
+	if (pairs == 0)
 	{
 		printf("%s", chunks->moves);
-		if (pairs == 0)
-			printf("%s", move);
+		printf("%s", move);
+		chunks->moves[0] = '\0';
+	}
+	else if (pairs == 1)
+	{
+		printf("%s", chunks->moves);
+		chunks->moves[0] = '\0';
+	}
+	if (pairs == 2)
+	{
+		if (chunks->moves[0] != '\0')
+			printf("%s", chunks->moves);
+		ft_strlcpy(chunks->moves, move, ft_strlen(move) + 1);
 	}
 }
 //puts all the output moves into a string in order to combine them
