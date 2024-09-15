@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:17:55 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 16:22:00 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:16:18 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	empty_chunk(t_list **stack_a, t_list ** stack_b, t_index *vars, int n)
 	max = 0;
 	calc_borders(stack_b, &min, &max);
 	elem_in_chunk = calc_chunk_size(stack_b, vars->levers[n - 1], max);
-	while (elem_in_chunk > 0)
+	while (elem_in_chunk >= 0)
 	{
 		calc_borders(stack_b, &min, &max);
 		push_max_or_min(stack_a, stack_b, vars, max);
@@ -75,5 +75,5 @@ void	push_all_back(t_list **stack_a, t_list **stack_b, t_index *vars)
 		empty_chunk(stack_a, stack_b, vars, n);
 		n--;
 	}
-	push_stack(stack_b, stack_a, vars, "pa\n");
+	//push_stack(stack_b, stack_a, vars, "pa\n");
 }

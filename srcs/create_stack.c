@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 22:41:56 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:03:38 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int	create_linked_list(char **input, t_list **stack)
 
 	list_len = 0;
 	i = 1;
+	if (!input[i][0])
+		return (0);
 	while (input[i] != NULL)
 	{
 		i = running_strings(input, stack, i, &list_len);

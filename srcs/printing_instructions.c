@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:23:24 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 19:14:43 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:27:15 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ int	pair_check(t_index *chunks,  char *move2)
 	if (((!ft_strcmp(chunks->moves, "sa\n")) && (!ft_strcmp(move2, "sb\n")))
 		|| ((!ft_strcmp(chunks->moves, "sb\n")) && (!ft_strcmp(move2, "sa\n"))))
 	{
-		return(ft_strcpy(chunks->moves, "ss\n"), 1);
+		return (ft_strcpy(chunks->moves, "ss\n"), 1);
 	}
 	else if (((!ft_strcmp(chunks->moves, "ra\n")) && (!ft_strcmp(move2, "rb\n")))
 		|| ((!ft_strcmp(chunks->moves, "rb\n")) && (!ft_strcmp(move2, "ra\n"))))
 	{
-		return(ft_strcpy(chunks->moves, "rr\n"), 1);
+		return (ft_strcpy(chunks->moves, "rr\n"), 1);
 	}
 	else if (((!ft_strcmp(chunks->moves, "rra\n")) && (!ft_strcmp(move2, "rrb\n")))
 		|| ((!ft_strcmp(chunks->moves, "rrb\n")) && (!ft_strcmp(move2, "rra\n"))))
 	{
-		return(ft_strcpy(chunks->moves, "rrr\n"), 1);
+		return (ft_strcpy(chunks->moves, "rrr\n"), 1);
 	}
 	else if (((!ft_strcmp(chunks->moves, "sa\n")) && (!ft_strcmp(move2, "sb\n")))
 		|| ((!ft_strcmp(chunks->moves, "sb\n")) && (!ft_strcmp(move2, "sa\n"))))
 	{
-		return(ft_strcpy(chunks->moves, "ss\n"), 1);
+		return (ft_strcpy(chunks->moves, "ss\n"), 1);
 	}
 	else if (!(ft_strcmp(move2, "pa\n")) || (!ft_strcmp(move2, "pb\n")))
 		return (0);
@@ -71,6 +71,11 @@ void	move_combo(t_index *chunks, char *move)
 {
 	int	pairs;
 
+	if (move == NULL && chunks->moves[0] != '\0')
+	{
+		ft_printf("%s", chunks->moves);
+		return ;
+	}
 	pairs = pair_check(chunks, move);
 	if (pairs == 0)
 	{
@@ -83,7 +88,7 @@ void	move_combo(t_index *chunks, char *move)
 		ft_printf("%s", chunks->moves);
 		chunks->moves[0] = '\0';
 	}
-	if (pairs == 2)
+	else if (pairs == 2)
 	{
 		if (chunks->moves[0] != '\0')
 			ft_printf("%s", chunks->moves);

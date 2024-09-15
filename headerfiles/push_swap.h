@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:40:00 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 22:06:56 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:07:16 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	initialize_array(t_index *vars, int chunk_num);
 //operations
 void	swap_first_elements(t_list **stack, t_index *chunks, char *move);
 void	push_stack(t_list **a, t_list **b, t_index *vars, char *move);
-void	edge_case_push_stack(t_list **a, t_list **b, t_index *vars, char *move);
+void	remove_from_a(t_list **stack_a);
+void	add_to_b(t_list **stack_b, t_list *first_a);
 void	rotate_stack(t_list **stack, t_index *chunks, char *move);
 void	reverse_rotate_stack(t_list **stack, t_index *chunks, char *move);
 void	swap_a_and_b(t_list **stack_a, t_list **stack_b);
@@ -77,19 +78,19 @@ int		count_elem(t_list **stack, int n);
 //printing instructions
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char *dst, const char *src);
-int		pair_check(t_index *chunks,  char *move2);
+int		pair_check(t_index *chunks, char *move2);
 void	move_combo(t_index *chunks, char *move);
 //sorting
 void	pick_algorithm(t_list **stack_a, t_list **stack_b, t_index *vars);
 void	sort_stack_three(t_list **stack_a, t_index *vars);
 void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *vars);
-void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *vars);
+void	big_sort(t_list **a, t_list **b, int list_len, t_index *vars);
 void	calculate_piles(t_list **stack_a, int *lever, int list_len);
 
 //big_sort functions
-void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int goal);
-void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int lev);
-void	push_to_b(t_list **stack_a, t_list **stack_b, t_index *vars, int lev);
+void	make_chunks(t_list **a, t_list **b, t_index *vars, int goal);
+void	create_two_chunks(t_list **a, t_list **b, t_index *vars, int lev);
+void	push_to_b(t_list **a, t_list **b, t_index *v, int lev);
 void	iterate_all_levers(t_list **stack_a, t_index *vars, int max);
 int		adjust_lever(t_list **stack_a, t_index *vars, int min, int max_rel);
 //sorting back

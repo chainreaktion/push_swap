@@ -6,11 +6,25 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 14:06:29 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 19:16:15 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:44:47 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+//ra or rb
+void	rotate_stack(t_list **stack, t_index *vars, char *move)
+{
+	*stack = (*stack)->next;
+	move_combo(vars, move);
+}
+
+//rra or rrb
+void	reverse_rotate_stack(t_list **stack, t_index *vars, char *move)
+{
+	*stack = (*stack)->prev;
+	move_combo(vars, move);
+}
 
 /* //ss = sa & sb
 void	swap_a_and_b(t_list **stack_a, t_list **stack_b)

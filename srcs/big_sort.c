@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 16:21:43 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:13:34 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,46 +64,45 @@ void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 }
 
 //lev = the lever between the two chunks that are being pushed
-void	push_to_b(t_list **stack_a, t_list **stack_b, t_index *vars, int lev)
+	//if the node is not in the current chunk, put it to the bottom of stack a for now
+
+void	push_to_b(t_list **a, t_list **b, t_index *v, int lev)
 {
-	//case if value is between min and current lever
-	if ((*stack_a)->data >= vars->levers[lev - 1] && (*stack_a)->data < vars->levers[lev])
+	if ((*a)->data >= v->levers[lev - 1] && (*a)->data < v->levers[lev])
 	{
-		(*stack_a)->chunk = lev;
-		(*stack_a)->ind = -1;
-		//case if this is the first push to b, no rotation needed
-		if (*stack_b == NULL)
-			push_stack(stack_a, stack_b, vars, "pb\n");
+		(*a)->chunk = lev;
+		(*a)->ind = -1;
+		if (*b == NULL)
+			push_stack(a, b, v, "pb\n");
 		else
 		{
-			push_stack(stack_a, stack_b, vars, "pb\n");
-			rotate_stack(stack_b, vars, "rb\n");
+			push_stack(a, b, v, "pb\n");
+			rotate_stack(b, v, "rb\n");
 		}
 	}
-	//case if value is between max and current lever
-	else if ((*stack_a)->data >= vars->levers[lev] && (*stack_a)->data < vars->levers[lev + 1])
+	else if ((*a)->data >= v->levers[lev] && (*a)->data < v->levers[lev + 1])
 	{
-		(*stack_a)->chunk = lev + 1;
-		(*stack_a)->ind = 1;
-		push_stack(stack_a, stack_b, vars, "pb\n");
+		(*a)->chunk = lev + 1;
+		(*a)->ind = 1;
+		push_stack(a, b, v, "pb\n");
 	}
-	//if the node is not in the current chunk, put it to the bottom of stack a for now
 	else
-		rotate_stack(stack_a, vars, "ra\n");
+		rotate_stack(a, v, "ra\n");
 }
 
 //lev = the lever between the two chunks that are being pushed
-void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int lev)
+void	create_two_chunks(t_list **a, t_list **b, t_index *vars, int lev)
 {
-	int i = 0;
+	int	i;
 
-	i = circ_list_len(stack_a);
+	i = 0;
+	i = circ_list_len(a);
 	while (i > 0)
 	{
-		if ((*stack_a)->data == vars->max_value)
-			rotate_stack(stack_a, vars, "ra\n");
+		if ((*a)->data == vars->max_value)
+			rotate_stack(a, vars, "ra\n");
 		else
-			push_to_b(stack_a, stack_b, vars, lev);
+			push_to_b(a, b, vars, lev);
 		i--;
 	}
 }
@@ -111,7 +110,7 @@ void	create_two_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int le
 //push a-values to b according to the chunks
 //goal = total number of chunks
 //create two chunks for every second lever-value
-void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int goal)
+void	make_chunks(t_list **a, t_list **b, t_index *vars, int goal)
 {
 	int		lev;
 	int		pairs;
@@ -122,18 +121,18 @@ void	make_chunks(t_list **stack_a, t_list **stack_b, t_index *vars, int goal)
 		pairs--;
 	while (lev < pairs)
 	{
-		create_two_chunks(stack_a, stack_b, vars, lev);
+		create_two_chunks(a, b, vars, lev);
 		lev += 2;
 	}
-	while ((*stack_a)->next != *stack_a)
+	while ((*a)->next != *a)
 	{
-		(*stack_a)->chunk = lev;
-		if ((*stack_a)->data == vars->max_value)
-			rotate_stack(stack_a, vars, "ra\n");
+		(*a)->chunk = lev;
+		if ((*a)->data == vars->max_value)
+			rotate_stack(a, vars, "ra\n");
 		else
 		{
-			(*stack_a)->ind = 1;
-			push_stack(stack_a, stack_b, vars, "pb\n");
+			(*a)->ind = 1;
+			push_stack(a, b, vars, "pb\n");
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:04:47 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 22:36:26 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:43:15 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,37 @@
 
 void	sort_stack_three(t_list **stack_a, t_index *vars)
 {
-	int	current;
-	int	last;
-	int	next_num;
+	t_list	*temp;
+	int		min;
+	int		max;
 
-	//vars->levers = NULL;
+	temp = *stack_a;
+	while (stack_sorted(&temp) == 1)
+	{
+		calc_borders(&temp, &min, &max);
+		if (temp->data == max)
+			rotate_stack(stack_a, vars, "ra\n");
+		else if (temp->prev->data == min)
+			reverse_rotate_stack(stack_a, vars, "rra\n");
+		else
+			swap_first_elements(stack_a, vars, "sa\n");
+		temp = *stack_a;
+	}
+}
+
+/* void	sort_stack_three(t_list **stack_a, t_index *vars)
+{
+	t_list	*temp;
+	int		current;
+	int		last;
+	int		next_num;
+
 	while (stack_sorted(stack_a) == 1)
 	{
-		current = (*stack_a)->data;
-		last = (*stack_a)->prev->data;
-		next_num = (*stack_a)->next->data;
+		temp = (*stack_a);
+		current = temp->data;
+		last = temp->prev->data;
+		next_num = temp->next->data;
 		if (current > next_num && current > last)
 			rotate_stack(stack_a, vars, "ra\n");
 		else if (current < next_num && current > last)
@@ -31,47 +52,72 @@ void	sort_stack_three(t_list **stack_a, t_index *vars)
 		else
 			swap_first_elements(stack_a, vars, "sa\n");
 	}
-}
+} */
 
 void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *vars)
 {
-	t_list	*temp;
 	int		min;
 	int		max;
 
-	min = 0;
-	max = 0;
-	//vars->levers = NULL;
 	calc_borders(stack_a, &min, &max);
-	temp = *stack_a;
-	while (((*stack_a)->next->next->next) != *stack_a)
+	while (circ_list_len(stack_a) > 3)
 	{
-		if ((temp->data == min) || (temp->data == max))
+		if (((*stack_a)->data == min) || ((*stack_a)->data == max))
 			push_stack(stack_a, stack_b, vars, "pb\n");
-		temp = temp->next;
+		else
+			rotate_stack(stack_a, vars, "ra\n");
 	}
 	sort_stack_three(stack_a, vars);
-	while ((*stack_b) != NULL)
+	if ((*stack_b)->data == min)
+		push_stack(stack_b, stack_a, vars, "pa\n");
+	else
 	{
-		if ((*stack_b)->data == min || (*stack_b)->next == (*stack_b))
-			push_stack(stack_b, stack_a, vars, "pa\n");
-		else
+		if ((*stack_b)->next != *stack_b)
 			rotate_stack(stack_b, vars, "rb\n");
+		push_stack(stack_b, stack_a, vars, "pa\n");
 	}
-	if (stack_sorted(stack_a) != 0)
+	push_stack(stack_b, stack_a, vars, "pa\n");
+	if (stack_sorted(stack_a) == 1)
 		rotate_stack(stack_a, vars, "ra\n");
+	move_combo(vars, NULL);
 }
 
-void	big_sort(t_list **stack_a, t_list **stack_b, int list_len, t_index *vars)
+/* void	sort_stack_five(t_list **stack_a, t_list **stack_b, t_index *vars)
+{
+	int		min;
+	int		max;
+
+	calc_borders(stack_a, &min, &max);
+	while (circ_list_len(stack_a) > 3)
+	{
+		if (((*stack_a)->data == min) || ((*stack_a)->data == max))
+			push_stack(stack_a, stack_b, vars, "pb\n");
+		else
+			rotate_stack(stack_a, vars, "ra\n");
+	}
+	sort_stack_three(stack_a, vars);
+	if ((*stack_b)->data == min)
+		push_stack(stack_b, stack_a, vars, "pa\n");
+	else
+	{
+		rotate_stack(stack_b, vars, "rb\n");
+		push_stack(stack_b, stack_a, vars, "pa\n");
+	}
+	push_stack(stack_b, stack_a, vars, "pa\n");
+	rotate_stack(stack_a, vars, "ra\n");
+	move_combo(vars, NULL);
+} */
+
+void	big_sort(t_list **a, t_list **b, int list_len, t_index *vars)
 {
 	int		chunk_num;
 
 	chunk_num = ft_sqrt(list_len);
 	initialize_array(vars, chunk_num);
 	vars->chunk_num = chunk_num;
-	iterate_all_levers(stack_a, vars, vars->chunk_num);
-	make_chunks(stack_a, stack_b, vars, vars->chunk_num);
-	push_all_back(stack_a, stack_b, vars);
+	iterate_all_levers(a, vars, vars->chunk_num);
+	make_chunks(a, b, vars, vars->chunk_num);
+	push_all_back(a, b, vars);
 }
 
 void	pick_algorithm(t_list **stack_a, t_list **stack_b, t_index *vars)
@@ -81,10 +127,13 @@ void	pick_algorithm(t_list **stack_a, t_list **stack_b, t_index *vars)
 	list_len = vars->list_len;
 	if (stack_sorted(stack_a) == 0)
 		return ;
-	if (list_len == 2)
+	else if (list_len == 2)
 		rotate_stack(stack_a, vars, "ra\n");
 	else if (list_len == 3)
+	{
 		sort_stack_three(stack_a, vars);
+		move_combo(vars, NULL);
+	}
 	else if (list_len <= 5)
 		sort_stack_five(stack_a, stack_b, vars);
 	else

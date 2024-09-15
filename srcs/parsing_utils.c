@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 14:52:46 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/14 22:15:38 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:08:26 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	list_free(t_list **stack)
 	*stack = NULL;
 }
 
+//free (vars->moves);
 void	struct_free(t_index *vars)
 {
 	free(vars->levers);
-	//free (vars->moves);
 	free(vars);
 }
 
