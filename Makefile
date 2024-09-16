@@ -6,7 +6,7 @@
 #    By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 22:04:51 by jschmitz          #+#    #+#              #
-#    Updated: 2024/09/14 21:10:50 by jschmitz         ###   ########.fr        #
+#    Updated: 2024/09/16 13:07:02 by jschmitz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,6 @@ OBJ = $(SRCS:.c=.o)
 
 HEADER_DIR = ./headerfiles
 
-HEADER = $(HEADER_DIR)/libft.h $(HEADER_DIR)/push_swap.h
-
 CFLAGS = -Wall -g3 -Wextra -Werror -I$(HEADER_DIR)
 
 RM = rm -f
@@ -56,7 +54,7 @@ AR = ar rcs
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	${CC} $(CFLAGS) -o $(NAME) $(OBJ)
+	${CC} -o $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -6,13 +6,13 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:39:51 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/15 23:03:38 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:56:44 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*create_new_node(char *input, int start)
+t_list	*create_new_node(char *input, int start, t_index *vars)
 {
 	int		len;
 	long	num;
@@ -28,28 +28,28 @@ t_list	*create_new_node(char *input, int start)
 	next_num = ft_substr(input, start, len);
 	if (next_num == NULL)
 		return (free(new_node), NULL);
-	num = atol(next_num);
+	num = ft_atol(next_num);
 	if (num > INT_MAX || num < INT_MIN)
 	{
 		free (next_num);
-		error_message();
+		error_message(vars);
 	}
 	new_node->data = (int)num;
 	free (next_num);
 	return (new_node);
 }
 
-int	add_new_node(t_list **stack, char *input, int start)
+int	add_new_node(t_list **stack, char *input, t_index *vars, int start)
 {
 	t_list	*new_node;
 	t_list	*last;
 
-	new_node = create_new_node(input, start);
+	new_node = create_new_node(input, start, vars);
 	if (new_node == NULL)
 	{
 		list_free(stack);
-		stack = NULL;
-		exit (0);
+		free (vars);
+		exit (1);
 	}
 	if (*stack == NULL)
 	{
@@ -68,7 +68,7 @@ int	add_new_node(t_list **stack, char *input, int start)
 	return (1);
 }
 
-void	error_check_list(t_list **stack)
+void	error_check_list(t_index *vars, t_list **stack)
 {
 	t_list	*temp;
 	t_list	*next_node;
@@ -81,7 +81,8 @@ void	error_check_list(t_list **stack)
 		{
 			if (temp->data == next_node->data)
 			{
-				error_message();
+				list_free(stack);
+				error_message(vars);
 			}
 			next_node = next_node->next;
 		}
@@ -89,41 +90,41 @@ void	error_check_list(t_list **stack)
 	}
 }
 
-int	running_strings(char **input, t_list **stack, int i, int *list_len)
+int	running_strings(t_index *vars, t_list **stack, int i, int *list_len)
 {
 	int	j;
 
 	j = 0;
-	while (input[i][j] != '\0')
+	while (vars->str_arr[i][j] != '\0')
 	{
-		if (input[i][j] == ' ')
+		if (vars->str_arr[i][j] == ' ')
 		{
-			while (input[i][j] == ' ')
+			while (vars->str_arr[i][j] == ' ')
 				j++;
-			if (input[i][j] == '\0')
+			if (vars->str_arr[i][j] == '\0')
 				return (i + 1);
 		}
-		*list_len += add_new_node(stack, input[i], j);
-		while (input[i][j] != '\0' && input[i][j] != ' ')
+		*list_len += add_new_node(stack, vars->str_arr[i], vars, j);
+		while (vars->str_arr[i][j] != '\0' && vars->str_arr[i][j] != ' ')
 			j++;
 	}
 	return (i + 1);
 }
 
 //case if multiple numbers on one string
-int	create_linked_list(char **input, t_list **stack)
+int	create_linked_list(t_index *vars, t_list **stack)
 {
 	int	list_len;
 	int	i;
 
 	list_len = 0;
 	i = 1;
-	if (!input[i][0])
+	if (!vars->str_arr[i][0])
 		return (0);
-	while (input[i] != NULL)
+	while (vars->str_arr[i] != NULL)
 	{
-		i = running_strings(input, stack, i, &list_len);
+		i = running_strings(vars, stack, i, &list_len);
 	}
-	error_check_list(stack);
+	error_check_list(vars, stack);
 	return (list_len);
 }

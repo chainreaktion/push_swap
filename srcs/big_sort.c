@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:42 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/15 23:13:34 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:31:03 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	iterate_all_levers(t_list **stack_a, t_index *vars, int max)
 }
 
 //lev = the lever between the two chunks that are being pushed
-	//if the node is not in the current chunk, put it to the bottom of stack a for now
-
+//if the node is not in the current chunk, put it to the bottom
+//of stack a for now
 void	push_to_b(t_list **a, t_list **b, t_index *v, int lev)
 {
 	if ((*a)->data >= v->levers[lev - 1] && (*a)->data < v->levers[lev])

@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 14:52:46 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/15 12:08:26 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/16 01:29:46 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_isalnum(int arg)
 	return ((arg >= '0' && arg <= '9'));
 }
 
-void	error_check_num(char **argv, int argc)
+void	error_check_num(t_index *vars, int argc)
 {
 	int	i;
 	int	j;
@@ -34,13 +34,13 @@ void	error_check_num(char **argv, int argc)
 	while (i < argc)
 	{
 		j = 0;
-		while (argv[i][j] != '\0')
+		while (vars->str_arr[i][j] != '\0')
 		{
-			if (ft_isalnumextended(argv[i][j]) == 0)
-				error_message();
-			if ((argv[i][j] == '-' || argv[i][j] == '+')
-				&& ft_isalnum(argv[i][j + 1]) == 0)
-				error_message();
+			if (ft_isalnumextended(vars->str_arr[i][j]) == 0)
+				error_message(vars);
+			if ((vars->str_arr[i][j] == '-' || vars->str_arr[i][j] == '+')
+				&& ft_isalnum(vars->str_arr[i][j + 1]) == 0)
+				error_message(vars);
 			j++;
 		}
 		i++;
@@ -66,11 +66,11 @@ void	list_free(t_list **stack)
 }
 
 //free (vars->moves);
-void	struct_free(t_index *vars)
+/* void	struct_free(t_index *vars)
 {
 	free(vars->levers);
 	free(vars);
-}
+} */
 
 void	initialize_array(t_index *vars, int chunk_num)
 {

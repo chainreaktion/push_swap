@@ -6,7 +6,7 @@
 /*   By: jschmitz <jschmitz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 14:06:29 by jschmitz          #+#    #+#             */
-/*   Updated: 2024/09/15 11:44:47 by jschmitz         ###   ########.fr       */
+/*   Updated: 2024/09/16 01:49:51 by jschmitz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //ra or rb
 void	rotate_stack(t_list **stack, t_index *vars, char *move)
 {
+	if (*stack == NULL)
+		return ;
 	*stack = (*stack)->next;
 	move_combo(vars, move);
 }
@@ -22,6 +24,8 @@ void	rotate_stack(t_list **stack, t_index *vars, char *move)
 //rra or rrb
 void	reverse_rotate_stack(t_list **stack, t_index *vars, char *move)
 {
+	if (*stack == NULL)
+		return ;
 	*stack = (*stack)->prev;
 	move_combo(vars, move);
 }
